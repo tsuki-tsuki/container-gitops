@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository.owner }}/caddy
+  IMAGE_NAME: tsuki-tsuki/caddy
 
 jobs:
   build-and-push-image:
