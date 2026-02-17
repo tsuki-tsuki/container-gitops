@@ -1,4 +1,4 @@
-name: Create and publish custom Caddy image used in Compose to GitHub Container Registry
+name: Create and publish custom Caddy image to GHCR
 
 on:
   push:
