@@ -1,13 +1,16 @@
 name: Create and publish custom Caddy image to GHCR
 
-on:
-  push:
-    branches: ['main']
-  workflow_dispatch:
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: tsuki-tsuki/caddy
+  WORKDIR: caddy-image
+
+on:
+  push:
+    branches: ['main']
+    paths:
+      - '${{ env.WORKDIR }}/**'
+  workflow_dispatch:
 
 jobs:
   build-and-push-image:
@@ -17,6 +20,14 @@ jobs:
       packages: write
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Load dotenv vars
+        uses: falti/dotenv-action@v1.1.5
+        with:
+          path: ${{ env.WORKDIR }}/.env
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -37,7 +48,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          context: "{{defaultContext}}:caddy-image"
+          context: "${{ env.WORKDIR }}"
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.CADDY_VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            CADDY_VERSION=${{ env.CADDY_VERSION }}
