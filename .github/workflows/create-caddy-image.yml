@@ -1,16 +1,16 @@
 name: Create and publish custom Caddy image to GHCR
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: tsuki-tsuki/caddy
-  WORKDIR: caddy-image
-
 on:
   push:
     branches: ['main']
     paths:
-      - '${{ env.WORKDIR }}/**'
+      - 'caddy-image/**'
   workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: tsuki-tsuki/caddy
+  WORKDIR: caddy-image
 
 jobs:
   build-and-push-image:
