@@ -6,6 +6,7 @@
   "customManagers": [
     {
       "customType": "regex",
+      "description": "update _VERSION in dotenv files",
       "managerFilePatterns": ["/(^|/|\\.).*\\.env$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s(?:ENV|ARG) .+?_VERSION=(?<currentValue>.+?)\\s"

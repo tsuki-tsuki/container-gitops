@@ -35,18 +35,18 @@ services:
     depends_on:
       - headscale
 
-  caddy:
-    image: caddy:<version>
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    volumes:
-      - ./conf:/etc/caddy
-      - ./site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
+  # caddy:
+  #   image: caddy:<version>
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "443:443/udp"
+  #   volumes:
+  #     - ./conf:/etc/caddy
+  #     - ./site:/srv
+  #     - caddy_data:/data
+  #     - caddy_config:/config
 networks:
  headscale-net:
    driver: bridge
