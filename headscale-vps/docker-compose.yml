@@ -35,18 +35,18 @@ services:
     depends_on:
       - headscale
 
-  # caddy:
-  #   image: caddy:<version>
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #     - "443:443/udp"
-  #   volumes:
-  #     - ./conf:/etc/caddy
-  #     - ./site:/srv
-  #     - caddy_data:/data
-  #     - caddy_config:/config
+  caddy:
+    image: ghcr.io/tsuki-tsuki/caddy:2.10.2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ${PODMAN_DATA}/caddy/config:/etc/caddy
+      - ${PODMAN_DATA}/caddy/site:/srv
+      - ${PODMAN_DATA}/caddy/data:/data
+      - ${PODMAN_DATA}/caddy/run:/config
 networks:
  headscale-net:
    driver: bridge
