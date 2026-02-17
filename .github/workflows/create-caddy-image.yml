@@ -1,4 +1,4 @@
-name: Create and publish custom Caddy image to GHCR
+name: Build Custom Caddy image
 
 on:
   push:
