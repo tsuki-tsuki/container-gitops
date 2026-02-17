@@ -7,9 +7,9 @@ services:
      - "28011:8080" # Client traffic
      - "3478:3478/udp" # DERP/STUN
    volumes:
-     - ~/podman/headscale/config:/etc/headscale
-     - ~/podman/headscale/data:/var/lib/headscale
-     - ~/podman/certs:/etc/headscale/certs:ro
+     - ${PODMAN_DATA}/headscale/config:/etc/headscale
+     - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
+     - ${PODMAN_DATA}/certs:/etc/headscale/certs:ro
    entrypoint: headscale serve
    labels:
      me.tale.headplane.target: headscale
@@ -21,11 +21,11 @@ services:
    container_name: headplane
    restart: unless-stopped
    volumes:
-     - '~/podman/headplane/config/config.yaml:/etc/headplane/config.yaml'
-     - '~/podman/headscale/config/config.yaml:/etc/headscale/config.yaml'
-     - '~/podman/headplane/data:/var/lib/headplane'
-     - '~/podman/headscale/data:/var/lib/headscale'
-     - '~/podman.sock:/var/run/docker.sock:ro'
+     - '${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml'
+     - '${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml'
+     - '${PODMAN_DATA}/headplane/data:/var/lib/headplane'
+     - '${PODMAN_DATA}/headscale/data:/var/lib/headscale'
+     - '${PODMAN_DATA}/socket/podman.sock:/var/run/docker.sock:ro'
    networks:
      headscale-net:
        aliases:
