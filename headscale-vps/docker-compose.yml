@@ -1,7 +1,7 @@
 services:
   headscale:
     container_name: headscale
-    image: headscale/headscale:latest
+    image: headscale/headscale:0.28.0
     restart: unless-stopped
     ports:
       - "28011:8080" # Client traffic
