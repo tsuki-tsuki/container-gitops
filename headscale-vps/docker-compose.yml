@@ -3,9 +3,9 @@ services:
     container_name: headscale
     image: headscale/headscale:0.28.0
     restart: unless-stopped
-    ports:
-      - "28011:8080" # Client traffic
-      - "3478:3478/udp" # DERP/STUN
+    # ports:
+    #   - "28011:8080" # Client traffic
+    #   - "3478:3478/udp" # DERP/STUN
     volumes:
       - ${PODMAN_DATA}/headscale/config:/etc/headscale
       - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
@@ -20,8 +20,8 @@ services:
     image: ghcr.io/tale/headplane:0.6.2-beta.5
     container_name: headplane
     restart: unless-stopped
-    ports:
-      - 3001:3001
+    # ports:
+    #   - 3001:3001
     volumes:
       - '${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml'
       - '${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml'
@@ -48,6 +48,9 @@ services:
       - ${PODMAN_DATA}/caddy/site:/srv
       - ${PODMAN_DATA}/caddy/data:/data
       - ${PODMAN_DATA}/caddy/run:/config
+    networks:
+      headscale-net: {}
+
 networks:
  headscale-net:
    driver: bridge
