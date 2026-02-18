@@ -49,7 +49,7 @@ services:
       - ${PODMAN_DATA}/caddy/data:/data
       - ${PODMAN_DATA}/caddy/run:/config
       - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro
-    network-mode: "host"
+    network_mode: "host"
     # networks:
     #   headscale-net: {}
 
