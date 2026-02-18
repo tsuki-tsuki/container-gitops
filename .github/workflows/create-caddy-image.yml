@@ -56,7 +56,7 @@ jobs:
         id: cache
         with:
           path: cache-mount
-          key: cache-mount-${{ hashFiles(format('{0}/{1}',env.WORKDIR,'Dockerfile') }}
+          key: cache-mount-${{ hashFiles(format('{0}/{1}',env.WORKDIR,'Dockerfile')) }}
 
       - name: Restore Docker cache mounts
         uses: reproducible-containers/buildkit-cache-dance@v3
