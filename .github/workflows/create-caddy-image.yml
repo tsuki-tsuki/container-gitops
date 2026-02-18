@@ -52,7 +52,7 @@ jobs:
         id: setup-buildx
 
       - name: Save Docker cache mount
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache
         with:
           path: cache-mount
