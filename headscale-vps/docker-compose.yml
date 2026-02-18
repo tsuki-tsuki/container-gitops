@@ -4,7 +4,7 @@ services:
     image: headscale/headscale:0.28.0
     restart: unless-stopped
     ports:
-      # - "8080:8080"
+      - "8080:8080"
       - "3478:3478/udp" # DERP/STUN
     volumes:
       - ${PODMAN_DATA}/headscale/config:/etc/headscale
@@ -20,8 +20,8 @@ services:
     image: ghcr.io/tale/headplane:0.6.2-beta.5
     container_name: headplane
     restart: unless-stopped
-    # ports:
-    #   - "3001:3001"
+    ports:
+      - "3001:3001"
     volumes:
       - ${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml
       - ${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml
@@ -35,23 +35,27 @@ services:
     depends_on:
       - headscale
 
+  # whoami:
+  #   image: traefik/whoami
+  #   ports:
+
   caddy:
     image: ghcr.io/tsuki-tsuki/caddy:2.10.2
     container_name: caddy
     restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    #   - "443:443/udp"
     volumes:
       - ${PODMAN_DATA}/caddy/config:/etc/caddy
       - ${PODMAN_DATA}/caddy/site:/srv
       - ${PODMAN_DATA}/caddy/data:/data
       - ${PODMAN_DATA}/caddy/run:/config
       - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro
-    # network_mode: "host"
-    networks:
-      headscale-net: {}
+    network_mode: "host"
+    # networks:
+    #   headscale-net: {}
 
 networks:
  headscale-net:
