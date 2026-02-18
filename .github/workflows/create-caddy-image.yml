@@ -42,6 +42,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}},value=${{ env.CADDY_VERSION }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ env.CADDY_VERSION }}
+            type=semver,pattern={{major}},value=${{ env.CADDY_VERSION }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -52,8 +56,10 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: "${{ env.WORKDIR }}"
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.CADDY_VERSION }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=user/app:buildcache
+          cache-to: type=registry,ref=user/app:buildcache,mode=max
           build-args: |
             CADDY_VERSION=${{ env.CADDY_VERSION }}
             CF_API_TOKEN=${{ secrets.CF_API_TOKEN }}
