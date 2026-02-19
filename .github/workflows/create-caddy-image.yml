@@ -78,4 +78,3 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             CADDY_VERSION=${{ env.CADDY_VERSION }}
-            CF_API_TOKEN=${{ secrets.CF_API_TOKEN }}

@@ -1,9 +1,6 @@
 ARG CADDY_VERSION
-ARG CF_API_TOKEN
 
 FROM caddy:${CADDY_VERSION}-builder AS builder
-
-ENV CF_API_TOKEN $CF_API_TOKEN
 
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
