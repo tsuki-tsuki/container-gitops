@@ -1,0 +1,41 @@
+services:
+  headscale:
+    container_name: headscale
+    image: headscale/headscale:0.28.0
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "3478:3478/udp" # DERP/STUN
+    volumes:
+      - ${PODMAN_DATA}/headscale/config:/etc/headscale
+      - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
+      - ${PODMAN_DATA}/certs:/etc/headscale/certs:ro
+    entrypoint: headscale serve
+    labels:
+      me.tale.headplane.target: headscale
+    # networks:
+    #   headscale-net: {}
+
+  headplane:
+    image: ghcr.io/tale/headplane:0.6.2-beta.5
+    container_name: headplane
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml
+      - ${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml
+      - ${PODMAN_DATA}/headplane/data:/var/lib/headplane
+      - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
+      - ${PODMAN_DATA}/socket/podman.sock:/var/run/docker.sock:ro
+    # networks:
+    #   headscale-net:
+    #     aliases:
+    #       - headplane
+    depends_on:
+      - headscale
+
+networks:
+ default:
+   driver: bridge
+   enable_ipv6: true
