@@ -1,0 +1,97 @@
+---
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:4.0.16
+    container_name: sonarr
+    volumes:
+      - /opt/sonarr:/config
+      - /media/share/Media/Videos/TV:/tv
+      - /media/share/Downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+  radarr:
+    image: lscr.io/linuxserver/radarr:6.0.4
+    container_name: radarr
+    volumes:
+      - /opt/radarr:/config
+      - /media/share/Media/Videos/Movies:/movies
+      - /media/share/Media/Videos/Concert:/extras
+      - /media/share/Downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  # TODO still unutilized
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:3.1.0
+    container_name: lidarr
+    volumes:
+      - /opt/lidarr:/config
+      - /media/share/Media/Musics:/music
+      - /media/share/Downloads:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+  # TODO currently deprecated, need to find replacement before rebuilding
+  # readarr:
+  #   image: lscr.io/linuxserver/readarr:0.4.18-develop
+  #   container_name: readarr
+  #   volumes:
+  #     - /opt/readarr:/config
+  #     - /media/share/Media/Books:/books
+  #     - /media/share/Downloads:/downloads
+  #   ports:
+  #     - 8787:8787
+  #   restart: unless-stopped
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:2.3.0
+    container_name: prowlarr
+    volumes:
+      - /opt/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+  flaresolverr:
+    # GitHub mirror ghcr.io/flaresolverr/flaresolverr:latest
+    image: flaresolverr/flaresolverr:v3.4.6
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+    ports:
+      - "${PORT:-8191}:8191"
+    restart: unless-stopped
+  sabnzbd:
+    image: binhex/arch-sabnzbd:4.5
+    container_name: sabnzbd
+    environment:
+      - UMASK=000
+      - PGID=0
+      - PUID=0
+    volumes:
+      - /media/share/Downloads:/data
+      - /opt/sabnzbd:/config
+    ports:
+      - 8080:8080
+      - 8090:8090
+    restart: unless-stopped
+  deluge:
+    image: binhex/arch-deluge:2.2
+    container_name: deluge
+    environment:
+      - WEBUI_PORT=8112
+      - DELUGE_DAEMON_LOG_LEVEL=info
+      - DELUGE_WEB_LOG_LEVEL=info
+      - UMASK=000
+      - PGID=0
+      - PUID=0
+    volumes:
+      - /media/share/Downloads:/data
+      - /opt/deluge:/config
+    ports:
+      - 8112:8112
+      - 58846:58846
+      - 58946:58946
+      - 58946:58946/udp
+    restart: unless-stopped
