@@ -76,4 +76,4 @@ networks:
 
 secrets:
   CF_API_TOKEN:
-    file: ${PODMAN_DATA}/secrets/cf_api_token
+    file: ${PODMAN_DATA}/.secrets/cf_api_token
