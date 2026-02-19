@@ -4,7 +4,7 @@ services:
     image: headscale/headscale:0.28.0
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      # - "8080:8080"
       - "3478:3478/udp" # DERP/STUN
     volumes:
       - ${PODMAN_DATA}/headscale/config:/etc/headscale
@@ -13,51 +13,63 @@ services:
     entrypoint: headscale serve
     labels:
       me.tale.headplane.target: headscale
-    networks:
-      headscale-net: {}
+    # networks:
+    #   headscale-net: {}
 
   headplane:
     image: ghcr.io/tale/headplane:0.6.2-beta.5
     container_name: headplane
     restart: unless-stopped
-    ports:
-      - "3001:3001"
+    # ports:
+    #   - "3001:3001"
     volumes:
       - ${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml
       - ${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml
       - ${PODMAN_DATA}/headplane/data:/var/lib/headplane
       - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
       - ${PODMAN_DATA}/socket/podman.sock:/var/run/docker.sock:ro
-    networks:
-      headscale-net:
-        aliases:
-          - headplane
+    # networks:
+    #   headscale-net:
+    #     aliases:
+    #       - headplane
     depends_on:
       - headscale
 
-  # whoami:
-  #   image: traefik/whoami
-  #   ports:
+  whoami:
+    image: traefik/whoami:v1.11.0
+    container_name: whoami
+    # ports:
+    #   - 2001
+    # command:
+    #   # It tells whoami to start listening on 2001 instead of 80
+    #   - --port=2001
+    #   - --name=iamfoo
 
   caddy:
     image: ghcr.io/tsuki-tsuki/caddy:2.10.2
     container_name: caddy
     restart: unless-stopped
-    # ports:
-    #   - "80:80"
-    #   - "443:443"
-    #   - "443:443/udp"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
     volumes:
       - ${PODMAN_DATA}/caddy/config:/etc/caddy
       - ${PODMAN_DATA}/caddy/site:/srv
       - ${PODMAN_DATA}/caddy/data:/data
       - ${PODMAN_DATA}/caddy/run:/config
       - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro
-    network_mode: "host"
+      - ${PODMAN_DATA}/with_secrets.sh:/with-secrets.sh:ro
+    # network_mode: "host"
+    command: ["/with-secrets.sh", "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
     # networks:
     #   headscale-net: {}
 
-networks:
- headscale-net:
-   driver: bridge
-   enable_ipv6: true
+# networks:
+#  headscale-net:
+#    driver: bridge
+#    enable_ipv6: true
+
+secrets:
+  CF_API_TOKEN:
+    file: ${PODMAN_DATA}/secrets/cf_api_token
