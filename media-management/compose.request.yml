@@ -28,16 +28,16 @@ services:
     restart: unless-stopped
     image: thomst08/requestrr:v2.1.9
 
-    overseerr:
-      container_name: overseerr
-      environment:
-        - TZ=Asia/Tokyo
-        - PUID=99
-        - PGID=100
-        - UMASK=022
-      ports:
-        - 5055:5055/tcp
-      volumes:
-        - /opt/docker/overseerr:/config
-      restart: unless-stopped
-      image: lscr.io/linuxserver/overseerr:1.35.0
+  overseerr:
+    container_name: overseerr
+    environment:
+      - TZ=Asia/Tokyo
+      - PUID=99
+      - PGID=100
+      - UMASK=022
+    ports:
+      - 5055:5055/tcp
+    volumes:
+      - /opt/docker/overseerr:/config
+    restart: unless-stopped
+    image: lscr.io/linuxserver/overseerr:1.35.0
