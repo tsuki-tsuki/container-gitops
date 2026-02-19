@@ -52,8 +52,7 @@ services:
       - 9696:9696
     restart: unless-stopped
   flaresolverr:
-    # GitHub mirror ghcr.io/flaresolverr/flaresolverr:latest
-    image: flaresolverr/flaresolverr:v3.4.6
+    image: ghcr.io/flaresolverr/flaresolverr:v3.4.6
     container_name: flaresolverr
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-info}
