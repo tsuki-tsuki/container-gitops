@@ -11,6 +11,25 @@ services:
     #   - --port=2001
     #   - --name=iamfoo
 
+  speedtest:
+    container_name: speedtest
+    image: ghcr.io/librespeed/speedtest:latest
+    restart: always
+    environment:
+      MODE: standalone
+      #TITLE: "LibreSpeed"
+      #TELEMETRY: "false"
+      #ENABLE_ID_OBFUSCATION: "false"
+      #REDACT_IP_ADDRESSES: "false"
+      #PASSWORD:
+      #EMAIL:
+      #DISABLE_IPINFO: "false"
+      #IPINFO_APIKEY: "your api key"
+      #DISTANCE: "km"
+      #WEBPORT: 8080
+    ports:
+      - "2002:8080" # webport mapping (host:container)
+
   caddy:
     image: ghcr.io/tsuki-tsuki/caddy:2.10.2
     container_name: caddy
