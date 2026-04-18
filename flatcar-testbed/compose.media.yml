@@ -11,7 +11,7 @@ services:
       - "${PORT:-8191}:8191"
     restart: unless-stopped
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:2.3.0
+    image: lscr.io/linuxserver/prowlarr:2.3.5
     container_name: prowlarr
     volumes:
       - /opt/prowlarr:/config
