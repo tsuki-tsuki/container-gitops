@@ -80,6 +80,7 @@ services:
       - TZ=Asia/Tokyo
   maintainerr:
     image: ghcr.io/maintainerr/maintainerr:3.18.0
+    container_name: maintainerr
     user: 1000:1000
     volumes:
       - /opt/maintainerr:/opt/data
