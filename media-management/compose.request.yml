@@ -29,4 +29,4 @@ services:
     volumes:
       - /opt/docker/requestrr:/root/config
     restart: unless-stopped
-    image: thomst08/requestrr:v2.1.9
+    image: thomst08/requestrr:v2.1.10
