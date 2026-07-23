@@ -74,7 +74,7 @@ services:
     container_name: recyclarr
     restart: unless-stopped
     volumes:
-      - /opt/recyclarr/config:/config
+      - /opt/recyclarr:/config
     environment:
       - TZ=Asia/Tokyo
   maintainerr:
