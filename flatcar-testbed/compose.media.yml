@@ -79,7 +79,7 @@ services:
     environment:
       - TZ=Asia/Tokyo
   maintainerr:
-    image: ghcr.io/maintainerr/maintainerr:3.8.10
+    image: ghcr.io/maintainerr/maintainerr:3.18.0
     user: 1000:1000
     volumes:
       - /opt/maintainerr:/opt/data
