@@ -46,18 +46,18 @@ services:
       - prowlarr
     restart: unless-stopped
   # TODO still unutilized
-  lidarr:
-    image: lscr.io/linuxserver/lidarr:3.1.0
-    container_name: lidarr
-    volumes:
-      - /opt/lidarr:/config
-      - /media/share/Media/Musics:/music
-      - /media/share/Downloads:/downloads
-    ports:
-      - 8686:8686
-    depends_on:
-      - prowlarr
-    restart: unless-stopped
+  # lidarr:
+  #   image: lscr.io/linuxserver/lidarr:3.1.0
+  #   container_name: lidarr
+  #   volumes:
+  #     - /opt/lidarr:/config
+  #     - /media/share/Media/Musics:/music
+  #     - /media/share/Downloads:/downloads
+  #   ports:
+  #     - 8686:8686
+  #   depends_on:
+  #     - prowlarr
+  #   restart: unless-stopped
   # TODO currently deprecated, need to find replacement before rebuilding
   # readarr:
   #   image: lscr.io/linuxserver/readarr:0.4.18-develop
@@ -69,6 +69,25 @@ services:
   #   ports:
   #     - 8787:8787
   #   restart: unless-stopped
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:8.7.0
+    container_name: recyclarr
+    user: 1000:1000
+    restart: unless-stopped
+    volumes:
+      - /opt/recylarr/config:/config
+    environment:
+      - TZ=Asia/Tokyo
+  maintainerr:
+    image: ghcr.io/maintainerr/maintainerr:3.8.10
+    user: 1000:1000
+    volumes:
+      - /opt/maintainerr:/opt/data
+    environment:
+      - TZ=Asia/Tokyo
+    ports:
+      - 6246:6246
+    restart: unless-stopped
   sabnzbd:
     image: binhex/arch-sabnzbd:5.0
     container_name: sabnzbd
