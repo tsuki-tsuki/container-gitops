@@ -70,7 +70,7 @@ services:
   #     - 8787:8787
   #   restart: unless-stopped
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:8.7.0
+    image: ghcr.io/recyclarr/recyclarr:8.7.1
     container_name: recyclarr
     restart: unless-stopped
     volumes:
