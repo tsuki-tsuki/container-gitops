@@ -1,7 +1,7 @@
 services:
   headscale:
     container_name: headscale
-    image: headscale/headscale:0.28.0
+    image: headscale/headscale:0.29.3
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -17,7 +17,7 @@ services:
     #   headscale-net: {}
 
   headplane:
-    image: ghcr.io/tale/headplane:0.6.2-beta.5
+    image: ghcr.io/tale/headplane:0.7.0
     container_name: headplane
     restart: unless-stopped
     ports:
