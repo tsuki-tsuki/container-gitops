@@ -27,7 +27,7 @@ services:
       - ${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml:z
       - ${PODMAN_DATA}/headplane/data:/var/lib/headplane:Z
       - ${PODMAN_DATA}/headscale/data:/var/lib/headscale:z
-      - ${XDG_RUNTIME_DIR}/podman/podman.sock:/var/run/docker.sock
+      - ${XDG_RUNTIME_DIR}/podman/podman.sock:/var/run/docker.sock:ro
     depends_on:
       - headscale
 
