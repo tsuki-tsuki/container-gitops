@@ -33,11 +33,11 @@ services:
     container_name: caddy
     restart: unless-stopped
     volumes:
-      - ${PODMAN_DATA}/caddy/config:/etc/caddy
-      - ${PODMAN_DATA}/caddy/site:/srv
-      - ${PODMAN_DATA}/caddy/data:/data
-      - ${PODMAN_DATA}/caddy/run:/config
-      - ${PODMAN_DATA}/with_secrets.sh:/with-secrets.sh:ro
+      - ${PODMAN_DATA}/caddy/config:/etc/caddy:Z
+      - ${PODMAN_DATA}/caddy/site:/srv:Z
+      - ${PODMAN_DATA}/caddy/data:/data:z
+      - ${PODMAN_DATA}/caddy/run:/config:Z
+      - ${PODMAN_DATA}/with_secrets.sh:/with-secrets.sh:Z,ro
     secrets:
       - CF_API_TOKEN
     network_mode: "host"

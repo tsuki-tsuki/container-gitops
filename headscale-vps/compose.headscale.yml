@@ -7,9 +7,9 @@ services:
       - "8080:8080"
       - "3478:3478/udp" # DERP/STUN
     volumes:
-      - ${PODMAN_DATA}/headscale/config:/etc/headscale
-      - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
-      - ${PODMAN_DATA}/certs:/etc/headscale/certs:ro
+      - ${PODMAN_DATA}/headscale/config:/etc/headscale:Z
+      - ${PODMAN_DATA}/headscale/data:/var/lib/headscale:Z
+      - ${PODMAN_DATA}/certs:/etc/headscale/certs:z,ro
     entrypoint: headscale serve
     labels:
       me.tale.headplane.target: headscale
@@ -21,11 +21,11 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - ${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml
-      - ${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml
-      - ${PODMAN_DATA}/headplane/data:/var/lib/headplane
-      - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
-      - ${PODMAN_DATA}/socket/podman.sock:/var/run/docker.sock:ro
+      - ${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml:Z
+      - ${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml:z
+      - ${PODMAN_DATA}/headplane/data:/var/lib/headplane:Z
+      - ${PODMAN_DATA}/headscale/data:/var/lib/headscale:z
+      - ${PODMAN_DATA}/socket/podman.sock:/var/run/docker.sock:z,ro
     depends_on:
       - headscale
 
