@@ -37,7 +37,6 @@ services:
       - ${PODMAN_DATA}/caddy/site:/srv
       - ${PODMAN_DATA}/caddy/data:/data
       - ${PODMAN_DATA}/caddy/run:/config
-      - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro
       - ${PODMAN_DATA}/with_secrets.sh:/with-secrets.sh:ro
     secrets:
       - CF_API_TOKEN
