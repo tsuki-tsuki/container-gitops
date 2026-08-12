@@ -20,6 +20,8 @@ services:
     restart: unless-stopped
     ports:
       - "3001:3001"
+    security_opt:
+      - label=disable
     volumes:
       - ${PODMAN_DATA}/headplane/config/config.yaml:/etc/headplane/config.yaml:Z
       - ${PODMAN_DATA}/headscale/config/config.yaml:/etc/headscale/config.yaml:z
