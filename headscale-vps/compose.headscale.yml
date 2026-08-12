@@ -13,8 +13,6 @@ services:
     entrypoint: headscale serve
     labels:
       me.tale.headplane.target: headscale
-    # networks:
-    #   headscale-net: {}
 
   headplane:
     image: ghcr.io/tale/headplane:0.7.0
@@ -28,10 +26,6 @@ services:
       - ${PODMAN_DATA}/headplane/data:/var/lib/headplane
       - ${PODMAN_DATA}/headscale/data:/var/lib/headscale
       - ${PODMAN_DATA}/socket/podman.sock:/var/run/docker.sock:ro
-    # networks:
-    #   headscale-net:
-    #     aliases:
-    #       - headplane
     depends_on:
       - headscale
 

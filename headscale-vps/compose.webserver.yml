@@ -32,10 +32,6 @@ services:
     image: ghcr.io/tsuki-tsuki/caddy:2.11.2
     container_name: caddy
     restart: unless-stopped
-    # ports:
-    #   - "80:80"
-    #   - "443:443"
-    #   - "443:443/udp"
     volumes:
       - ${PODMAN_DATA}/caddy/config:/etc/caddy
       - ${PODMAN_DATA}/caddy/site:/srv
@@ -46,8 +42,6 @@ services:
     secrets:
       - CF_API_TOKEN
     network_mode: "host"
-    # networks:
-    #   headscale-net: {}
     command: ["/with-secrets.sh", "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
 
 networks:
