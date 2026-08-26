@@ -11,7 +11,7 @@ services:
 
   speedtest:
     container_name: speedtest
-    image: ghcr.io/librespeed/speedtest:latest
+    image: ghcr.io/librespeed/speedtest:6
     restart: always
     environment:
       MODE: standalone
