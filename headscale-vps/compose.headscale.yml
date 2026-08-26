@@ -11,6 +11,11 @@ services:
       - ${PODMAN_DATA}/headscale/data:/var/lib/headscale:Z
       - ${PODMAN_DATA}/certs:/etc/headscale/certs:z,ro
     entrypoint: headscale serve
+    logging:
+      driver: k8s-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     labels:
       me.tale.headplane.target: headscale
 
@@ -20,6 +25,11 @@ services:
     restart: unless-stopped
     ports:
       - "3001:3001"
+    logging:
+      driver: k8s-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     security_opt:
       - label=disable
     volumes:
