@@ -41,6 +41,29 @@ services:
     depends_on:
       - headscale
 
+  stun:
+    image: ghcr.io/coturn/coturn:4.17
+    container_name: stun
+    restart: unless-stopped
+
+    command:
+      - turnserver
+      - --stun-only
+      - --no-cli
+      - --no-tls
+      - --no-dtls
+      - --listening-port=3479
+      - --listening-ip=0.0.0.0
+
+    ports:
+      - "3479:3479/udp"
+
+    logging:
+      driver: k8s-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
 networks:
  default:
    driver: bridge
