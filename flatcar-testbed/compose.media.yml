@@ -78,7 +78,7 @@ services:
     environment:
       - TZ=Asia/Tokyo
   maintainerr:
-    image: ghcr.io/maintainerr/maintainerr:3.25.0
+    image: ghcr.io/maintainerr/maintainerr:3.27.0
     container_name: maintainerr
     volumes:
       - /opt/maintainerr:/opt/data
