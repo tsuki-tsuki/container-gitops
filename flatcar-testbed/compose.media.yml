@@ -33,7 +33,7 @@ services:
       - prowlarr
     restart: unless-stopped
   radarr:
-    image: lscr.io/linuxserver/radarr:6.3.0
+    image: lscr.io/linuxserver/radarr:6.4.4
     container_name: radarr
     volumes:
       - /opt/radarr:/config
