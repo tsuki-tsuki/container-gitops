@@ -42,7 +42,7 @@ services:
       - headscale
 
   stun:
-    image: ghcr.io/coturn/coturn:4.17
+    image: ghcr.io/coturn/coturn:4.18
     container_name: stun
     restart: unless-stopped
 
