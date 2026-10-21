@@ -1,7 +1,7 @@
 services:
   headscale:
     container_name: headscale
-    image: headscale/headscale:v0.29.4
+    image: headscale/headscale:v0.29.5
     restart: unless-stopped
     ports:
       - "8080:8080"
